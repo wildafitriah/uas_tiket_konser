@@ -15,6 +15,7 @@ st.set_page_config(
 # =========================================================
 class TicketNode:
     def __init__(self, nama, konser, kategori, jumlah, total):
+
         self.nama = nama
         self.konser = konser
         self.kategori = kategori
@@ -27,6 +28,7 @@ class TicketNode:
 # CLASS LINKED LIST
 # =========================================================
 class TicketLinkedList:
+
     def __init__(self):
         self.head = None
 
@@ -40,10 +42,13 @@ class TicketLinkedList:
             total
         )
 
+        # jika linked list kosong
         if self.head is None:
             self.head = node_baru
 
+        # jika linked list ada isi
         else:
+
             current = self.head
 
             while current.next:
@@ -51,6 +56,7 @@ class TicketLinkedList:
 
             current.next = node_baru
 
+    # menampilkan data
     def tampilkan_data(self):
 
         data = []
@@ -80,57 +86,146 @@ if "tickets" not in st.session_state:
 
 
 # =========================================================
+# HEADER
+# =========================================================
+st.title("🎫 Aplikasi Pemesanan Tiket Konser")
+
+st.write(
+    "Project Struktur Data Menggunakan Linked List dan Streamlit"
+)
+
+st.divider()
+
+
+# =========================================================
+# SIDEBAR EDIT DATA KONSER
+# =========================================================
+st.sidebar.header("⚙️ Edit Data Konser")
+
+# =========================================================
+# KONSER 1
+# =========================================================
+nama_konser1 = st.sidebar.text_input(
+    "Nama Konser 1",
+    "Coldplay World Tour"
+)
+
+lokasi1 = st.sidebar.text_input(
+    "Lokasi Konser 1",
+    "Jakarta International Stadium"
+)
+
+tanggal1 = st.sidebar.text_input(
+    "Tanggal Konser 1",
+    "12 Juni 2026"
+)
+
+vip1 = st.sidebar.number_input(
+    "Harga VIP 1",
+    value=2500000
+)
+
+regular1 = st.sidebar.number_input(
+    "Harga Regular 1",
+    value=1200000
+)
+
+st.sidebar.divider()
+
+# =========================================================
+# KONSER 2
+# =========================================================
+nama_konser2 = st.sidebar.text_input(
+    "Nama Konser 2",
+    "NIKI Live Concert"
+)
+
+lokasi2 = st.sidebar.text_input(
+    "Lokasi Konser 2",
+    "ICE BSD"
+)
+
+tanggal2 = st.sidebar.text_input(
+    "Tanggal Konser 2",
+    "20 Juli 2026"
+)
+
+vip2 = st.sidebar.number_input(
+    "Harga VIP 2",
+    value=1800000
+)
+
+regular2 = st.sidebar.number_input(
+    "Harga Regular 2",
+    value=850000
+)
+
+st.sidebar.divider()
+
+# =========================================================
+# KONSER 3
+# =========================================================
+nama_konser3 = st.sidebar.text_input(
+    "Nama Konser 3",
+    "Taylor Swift Eras Tour"
+)
+
+lokasi3 = st.sidebar.text_input(
+    "Lokasi Konser 3",
+    "Gelora Bung Karno"
+)
+
+tanggal3 = st.sidebar.text_input(
+    "Tanggal Konser 3",
+    "10 Agustus 2026"
+)
+
+vip3 = st.sidebar.number_input(
+    "Harga VIP 3",
+    value=3500000
+)
+
+regular3 = st.sidebar.number_input(
+    "Harga Regular 3",
+    value=2000000
+)
+
+# =========================================================
 # DATA KONSER
 # =========================================================
 konser_data = {
 
-    "Coldplay World Tour": {
-        "lokasi": "Jakarta International Stadium",
-        "tanggal": "12 Juni 2026",
-        "vip": 2500000,
-        "regular": 1200000
+    nama_konser1: {
+        "lokasi": lokasi1,
+        "tanggal": tanggal1,
+        "vip": vip1,
+        "regular": regular1
     },
 
-    "NIKI Live Concert": {
-        "lokasi": "ICE BSD",
-        "tanggal": "20 Juli 2026",
-        "vip": 1800000,
-        "regular": 850000
+    nama_konser2: {
+        "lokasi": lokasi2,
+        "tanggal": tanggal2,
+        "vip": vip2,
+        "regular": regular2
     },
 
-    "Taylor Swift Eras Tour": {
-        "lokasi": "Gelora Bung Karno",
-        "tanggal": "10 Agustus 2026",
-        "vip": 3500000,
-        "regular": 2000000
+    nama_konser3: {
+        "lokasi": lokasi3,
+        "tanggal": tanggal3,
+        "vip": vip3,
+        "regular": regular3
     }
 
 }
 
 # =========================================================
-# JUDUL YANG BISA DIGANTI LANGSUNG DI STREAMLIT
-# =========================================================
-judul_aplikasi = st.text_input(
-    "✏️ Ubah Judul Aplikasi",
-    "🎫 Aplikasi Pemesanan Tiket Konser"
-)
-
-subjudul = st.text_input(
-    "✏️ Ubah Sub Judul",
-    "Project Struktur Data Menggunakan Linked List"
-)
-
-st.title(judul_aplikasi)
-st.write(subjudul)
-
-st.divider()
-
-# =========================================================
-# SIDEBAR INPUT
+# FORM PEMESANAN
 # =========================================================
 st.sidebar.header("📝 Form Pemesanan Tiket")
 
-nama = st.sidebar.text_input("👤 Nama Pembeli")
+nama = st.sidebar.text_input(
+    "👤 Nama Pembeli"
+)
 
 konser = st.sidebar.selectbox(
     "🎵 Pilih Konser",
@@ -149,47 +244,64 @@ jumlah = st.sidebar.number_input(
     value=1
 )
 
-submit = st.sidebar.button("🎟️ Pesan Tiket")
-
-st.sidebar.divider()
+submit = st.sidebar.button(
+    "🎟️ Pesan Tiket"
+)
 
 # =========================================================
-# TAMPILAN KONSER
+# TAMPILAN DAFTAR KONSER
 # =========================================================
 st.header("🎤 Daftar Konser")
 
+konser_list = list(konser_data.items())
+
 col1, col2, col3 = st.columns(3)
 
+# =========================================================
+# KOLOM 1
+# =========================================================
 with col1:
 
-    st.subheader("Coldplay World Tour")
+    nama_konser, detail = konser_list[0]
 
-    st.write("📍 Jakarta International Stadium")
-    st.write("📅 12 Juni 2026")
-    st.write("💎 VIP : Rp 2,500,000")
-    st.write("🎟️ Regular : Rp 1,200,000")
+    st.subheader(nama_konser)
+
+    st.write(f"📍 {detail['lokasi']}")
+    st.write(f"📅 {detail['tanggal']}")
+    st.write(f"💎 VIP : Rp {detail['vip']:,}")
+    st.write(f"🎟️ Regular : Rp {detail['regular']:,}")
 
     st.success("Tiket tersedia")
 
+# =========================================================
+# KOLOM 2
+# =========================================================
 with col2:
 
-    st.subheader("NIKI Live Concert")
+    nama_konser, detail = konser_list[1]
 
-    st.write("📍 ICE BSD")
-    st.write("📅 20 Juli 2026")
-    st.write("💎 VIP : Rp 1,800,000")
-    st.write("🎟️ Regular : Rp 850,000")
+    st.subheader(nama_konser)
+
+    st.write(f"📍 {detail['lokasi']}")
+    st.write(f"📅 {detail['tanggal']}")
+    st.write(f"💎 VIP : Rp {detail['vip']:,}")
+    st.write(f"🎟️ Regular : Rp {detail['regular']:,}")
 
     st.success("Tiket tersedia")
 
+# =========================================================
+# KOLOM 3
+# =========================================================
 with col3:
 
-    st.subheader("Taylor Swift Eras Tour")
+    nama_konser, detail = konser_list[2]
 
-    st.write("📍 Gelora Bung Karno")
-    st.write("📅 10 Agustus 2026")
-    st.write("💎 VIP : Rp 3,500,000")
-    st.write("🎟️ Regular : Rp 2,000,000")
+    st.subheader(nama_konser)
+
+    st.write(f"📍 {detail['lokasi']}")
+    st.write(f"📅 {detail['tanggal']}")
+    st.write(f"💎 VIP : Rp {detail['vip']:,}")
+    st.write(f"🎟️ Regular : Rp {detail['regular']:,}")
 
     st.success("Tiket tersedia")
 
@@ -206,14 +318,17 @@ if submit:
 
     else:
 
+        # menentukan harga
         if kategori == "VIP":
             harga = konser_data[konser]["vip"]
 
         else:
             harga = konser_data[konser]["regular"]
 
+        # menghitung total
         total = harga * jumlah
 
+        # simpan ke linked list
         st.session_state.tickets.tambah_tiket(
             nama,
             konser,
@@ -223,8 +338,6 @@ if submit:
         )
 
         st.success("✅ Tiket berhasil dipesan!")
-
-        # BALON SUDAH DIHAPUS
 
         st.subheader("🧾 Detail Pemesanan")
 
@@ -259,6 +372,9 @@ if data:
         use_container_width=True
     )
 
+    # =====================================================
+    # STATISTIK
+    # =====================================================
     total_pembeli = len(data)
 
     total_penghasilan = 0
@@ -291,16 +407,15 @@ if data:
 
 else:
 
-    st.warning("Belum ada data pemesanan tiket.")
+    st.warning(
+        "Belum ada data pemesanan tiket."
+    )
 
 # =========================================================
 # FOOTER
 # =========================================================
 st.divider()
 
-footer_text = st.text_input(
-    "✏️ Ubah Footer",
+st.caption(
     "© 2026 | Project UAS Struktur Data - Tiket Konser"
 )
-
-st.caption(footer_text)
